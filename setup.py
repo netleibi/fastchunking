@@ -46,10 +46,18 @@ if not os.path.exists(build_path):
 
 # Generate Python bindings for bundled C++ library.
 module_fname = os.path.join(build_path, "rabinkarprh.cpp")
-with open(module_fname, "wt") as file_:
-    print("Generating file {}".format(module_fname))
-    from lib.rabinkarp_gen import generate
-    generate(file_)
+
+try:
+    import pybindgen #@UnusedImport
+except ImportError:
+    print("WARNING: Failed to import pybindgen. If you called setup.py egg_info,"
+          "this is probably acceptable; otherwise, build will fail."
+          "You can resolve this problem by installing pybindgen beforehand.")
+else:
+    with open(module_fname, "wt") as file_:
+        print("Generating file {}".format(module_fname))
+        from lib.rabinkarp_gen import generate
+        generate(file_)
 
 setup(
     name='fastchunking',
@@ -79,10 +87,11 @@ setup(
             'Programming Language :: Python :: 3'
     ],
 
-    keywords='text chunking SC CDC ML-* ML-SC ML-CDC rabinkarp',
+    keywords=['text chunking', 'SC', 'static chunking', 'CDC', 'content-defined chunking', 'ML-*', 'multi-level chunking', 'ML-SC', 'ML-CDC', 'Rabin Karp', 'rolling hash'],
 
     packages=['fastchunking', 'lib'],
 
+    setup_requires=['pybindgen'],
     install_requires=['pybindgen'],
 
     ext_modules=[
