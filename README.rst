@@ -2,6 +2,16 @@
 fastchunking Python library
 ===========================
 
+.. image:: https://travis-ci.org/netleibi/fastchunking.svg?branch=master
+    :target: https://travis-ci.org/netleibi/fastchunking
+
+.. image:: https://badge.fury.io/py/fastchunking.svg
+    :target: https://badge.fury.io/py/fastchunking
+
+.. image:: https://readthedocs.org/projects/fastchunking/badge/?version=latest
+:target: http://fastchunking.readthedocs.io/en/latest/?badge=latest
+:alt: Documentation Status
+
 What it is
 ----------
 
