@@ -9,8 +9,8 @@ fastchunking Python library
     :target: https://badge.fury.io/py/fastchunking
 
 .. image:: https://readthedocs.org/projects/fastchunking/badge/?version=latest
-:target: http://fastchunking.readthedocs.io/en/latest/?badge=latest
-:alt: Documentation Status
+    :target: http://fastchunking.readthedocs.io/en/latest/?badge=latest
+    :alt: Documentation Status
 
 What it is
 ----------
