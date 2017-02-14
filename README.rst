@@ -143,21 +143,22 @@ message that is to be chunked. To minimize costs, fastchunking works as follows:
        converted into a Python list.
 
 Based on a 100 MiB random content, the author measured the following throughput
-on an Intel Core i7-4600U in a single, non-representative test run:
+on an Intel Core i7-4770K in a single, non-representative test run using
+Python 3.5 (Windows x86-64):
 
     =========== ==========
     chunk size  throughput
     =========== ==========
-    64 bytes    49 MiB/s
-    128 bytes   57 MiB/s
-    256 bytes   62 MiB/s
-    512 bytes   63 MiB/s
-    1024 bytes  67 MiB/s
-    2048 bytes  68 MiB/s
-    4096 bytes  70 MiB/s
-    8192 bytes  71 MiB/s
-    16384 bytes 71 MiB/s
-    32768 bytes 71 MiB/s
+    64 bytes    118 MiB/s
+    128 bytes   153 MiB/s
+    256 bytes   187 MiB/s
+    512 bytes   206 MiB/s
+    1024 bytes  221 MiB/s
+    2048 bytes  226 MiB/s
+    4096 bytes  231 MiB/s
+    8192 bytes  234 MiB/s
+    16384 bytes 233 MiB/s
+    32768 bytes 234 MiB/s
     =========== ==========
 
 Testing
