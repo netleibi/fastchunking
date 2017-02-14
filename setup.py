@@ -83,7 +83,8 @@ setup(
 
             'Operating System :: OS Independent',
 
-            'Programming Language :: Python :: 3'
+            'Programming Language :: Python :: 3',
+            'Programming Language :: Python :: 3.5'
     ],
 
     keywords=['text chunking', 'SC', 'static chunking', 'CDC', 'content-defined chunking', 'ML-*', 'multi-level chunking', 'ML-SC', 'ML-CDC', 'Rabin Karp', 'rolling hash'],

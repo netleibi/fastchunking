@@ -86,14 +86,14 @@ Despite that, usage is similar to static chunking:
     >>> cdc = fastchunking.RabinKarpCDC(window_size=48, seed=0)
     >>> chunker = cdc.create_chunker(chunk_size=4096)
     >>> chunker.next_chunk_boundaries(message)
-    [7475L, 10451L, 12253L, 13880L, 15329L, 19808L, ...]
+    [7475, 10451, 12253, 13880, 15329, 19808, ...]
     
 Chunking in fragments is straightforward:
     >>> chunker = cdc.create_chunker(chunk_size=4096)
     >>> chunker.next_chunk_boundaries(message[:10240])
-    [7475L]
+    [7475]
     >>> chunker.next_chunk_boundaries(message[10240:])
-    [211L, 2013L, 3640L, 5089L, 9568L, ...]
+    [211, 2013, 3640, 5089, 9568, ...]
 
 Multi-Level Chunking (ML-\*)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -111,8 +111,8 @@ Usage of multi-level-chunking, e.g., ML-CDC, is easy:
     >>> chunk_sizes = [1024, 2048, 4096]
     >>> chunker = cdc.create_multilevel_chunker(chunk_sizes)
     >>> chunker.next_chunk_boundaries_with_levels(message)
-    [(1049L, 2L), (1511L, 1L), (1893L, 2L), (2880L, 1L), (2886L, 0L),
-    (3701L, 0L), (4617L, 0L), (5809L, 2L), (5843L, 0L), ...]
+    [(1049, 2), (1511, 1), (1893, 2), (2880, 1), (2886, 0),
+    (3701, 0), (4617, 0), (5809, 2), (5843, 0), ...]
 
 The second value in each tuple indicates the highest chunk size that leads to
 a boundary. Here, the first boundary is a boundary created by the chunker with
