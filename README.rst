@@ -31,8 +31,8 @@ If you are using Python >=3.5, you have to install pybindgen which is required
 by fastchunking beforehand as the latest version currently available via pip is
 outdated:
 
-	$ pip uninstall pybindgen
-	$ pip install git+https://github.com/gjcarneiro/pybindgen.git
+    $ pip uninstall pybindgen
+    $ pip install git+https://github.com/gjcarneiro/pybindgen.git
 
 .. note:: For performance reasons, parts of this library are implemented in C++.
 	Installation from a source distribution, thus, requires availability of a
