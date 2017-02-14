@@ -15,6 +15,7 @@
 #ifndef RABINKARP_H
 #define RABINKARP_H
 
+#include <algorithm>
 #include "characterhash.h"
 
 #include <cstring>
