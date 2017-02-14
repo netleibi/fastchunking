@@ -83,7 +83,7 @@ class StaticChunkingTests(unittest.TestCase):
 
             chunker = self.chunking_strategy.create_chunker(
                 chunk_size=64)
-            boundaries = chunker.next_chunk_boundaries('\0' + content)
+            boundaries = chunker.next_chunk_boundaries(b'\0' + content)
 
             prepend_chunker = self.chunking_strategy.create_chunker(
                 chunk_size=64)
@@ -91,7 +91,7 @@ class StaticChunkingTests(unittest.TestCase):
                 content, 1)
 
             self.assertEqual(
-                boundaries, map(lambda x: x + 1, prepend_boundaries))
+                boundaries, list(map(lambda x: x + 1, prepend_boundaries)))
 
 
 class RabinKarpTests(unittest.TestCase):
@@ -128,7 +128,7 @@ class RabinKarpTests(unittest.TestCase):
 
             chunker = self.chunking_strategy.create_chunker(
                 chunk_size=64)
-            boundaries = chunker.next_chunk_boundaries('\0' + content)
+            boundaries = chunker.next_chunk_boundaries(b'\0' + content)
 
             prepend_chunker = self.chunking_strategy.create_chunker(
                 chunk_size=64)
@@ -136,7 +136,7 @@ class RabinKarpTests(unittest.TestCase):
                 content, 1)
 
             self.assertEqual(
-                boundaries, map(lambda x: x + 1, prepend_boundaries))
+                boundaries, list(map(lambda x: x + 1, prepend_boundaries)))
 
     def test_sample_data_1(self):
         content = 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.'
@@ -163,8 +163,8 @@ class RabinKarpTests(unittest.TestCase):
         boundaries_with_levels = chunker.next_chunk_boundaries_levels(
             content)
 
-        self.assertEqual(boundaries_with_levels, [(56L, 0L), (98L, 1L), (106L, 0L), (136L, 0L), (182L, 1L), (196L, 0L), (198L, 2L), (204L, 1L), (206L, 0L), (213L, 0L), (227L, 0L), (245L, 2L), (270L, 1L), (282L, 0L), (287L, 0L), (312L, 1L), (313L, 1L), (315L, 1L), (317L, 0L), (328L, 0L), (
-            331L, 0L), (345L, 0L), (367L, 0L), (377L, 2L), (383L, 1L), (391L, 0L), (408L, 0L), (410L, 2L), (437L, 0L), (443L, 0L), (459L, 1L), (463L, 0L), (466L, 2L), (474L, 1L), (492L, 2L), (497L, 2L), (501L, 1L), (522L, 2L), (532L, 1L), (545L, 1L), (577L, 0L), (597L, 0L), (598L, 2L), (606L, 0L)])
+        self.assertEqual(list(boundaries_with_levels), [(56, 0), (98, 1), (106, 0), (136, 0), (182, 1), (196, 0), (198, 2), (204, 1), (206, 0), (213, 0), (227, 0), (245, 2), (270, 1), (282, 0), (287, 0), (312, 1), (313, 1), (315, 1), (317, 0), (328, 0), (
+            331, 0), (345, 0), (367, 0), (377, 2), (383, 1), (391, 0), (408, 0), (410, 2), (437, 0), (443, 0), (459, 1), (463, 0), (466, 2), (474, 1), (492, 2), (497, 2), (501, 1), (522, 2), (532, 1), (545, 1), (577, 0), (597, 0), (598, 2), (606, 0)])
 
 
 class AbstractTests(unittest.TestCase):

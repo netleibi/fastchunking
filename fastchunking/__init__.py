@@ -182,7 +182,7 @@ class SC(BaseChunkingStrategy):
 
             # determine chunk boundaries
             buf_length = len(buf)
-            chunk_boundaries = xrange(
+            chunk_boundaries = range(
                 self._next_chunk_boundary, buf_length + 1, self._chunk_size)
 
             # update next chunk boundary position
