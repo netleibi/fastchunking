@@ -11,7 +11,7 @@ See below for details.
 import abc
 import fastchunking._rabinkarprh as _rabinkarprh
 
-__version__ = '0.0.3'
+__version__ = '0.0.4'
 
 
 class BaseChunkingStrategy(object):
