@@ -18,6 +18,7 @@ class BaseChunkingStrategy(object):
 
     """Abstract base class for chunking strategies."""
     __metaclass__ = abc.ABCMeta
+    __slots__ = ['window_size']
 
     def __init__(self):
         self.window_size = 1
@@ -48,6 +49,7 @@ class BaseChunker(object):
 
     """Abstract class specifying the interface of chunkers."""
     __metaclass__ = abc.ABCMeta
+    __slots__ = []
 
     def next_chunk_boundaries(self, buf, prepend_bytes=0):
         """Computes the next chunk boundaries within `buf`.
@@ -72,6 +74,7 @@ class BaseMultiLevelChunker(BaseChunker):
 
     """Abstract class specifying the interface of multi-level chunkers."""
     __metaclass__ = abc.ABCMeta
+    __slots__ = []
 
     def next_chunk_boundaries(self, buf, prepend_bytes=0):
         """Computes the next chunk boundaries within `buf`.
@@ -112,6 +115,8 @@ class DefaultMultiLevelChunker(BaseMultiLevelChunker):
     Multi-level chunkers perform chunking using multiple chunkers of type
     :class:`.BaseChunker` with different chunk sizes in parallel.
     """
+    
+    __slots__ = ['_chunkers']
 
     def __init__(self, chunk_sizes, chunker_create_fn):
         # create a chunker for each chunk size
@@ -152,6 +157,8 @@ class SC(BaseChunkingStrategy):
 
     Generates fixed-size chunks.
     """
+    
+    __slots__ = []
 
     def create_chunker(self, chunk_size):
         """Create a chunker performing static chunking (SC) with a specific
@@ -168,6 +175,8 @@ class SC(BaseChunkingStrategy):
     class _Chunker(BaseChunker):
 
         """Static chunker instance."""
+        
+        __slots__ = ['_chunk_size', '_next_chunk_boundary']
 
         def __init__(self, chunk_size):
             self._chunk_size = chunk_size
@@ -200,6 +209,8 @@ class RabinKarpCDC(BaseChunkingStrategy):
 
     Generates variable-size chunks.
     """
+
+    __slots__ = ['window_size', '_seed']
 
     def __init__(self, window_size, seed):
         super(RabinKarpCDC, self).__init__()
@@ -241,6 +252,8 @@ class RabinKarpCDC(BaseChunkingStrategy):
 
     class _Chunker(BaseChunker):
 
+        __slots__ = ['_rolling_hash']
+
         def __init__(self, rolling_hash):
             self._rolling_hash = rolling_hash
 
@@ -248,6 +261,8 @@ class RabinKarpCDC(BaseChunkingStrategy):
             return list(self._rolling_hash.next_chunk_boundaries(buf, prepend_bytes))
 
     class _MultiLevelChunker(BaseMultiLevelChunker):
+
+        __slots__ = ['_rolling_hash']
 
         def __init__(self, rolling_hash):
             self._rolling_hash = rolling_hash
