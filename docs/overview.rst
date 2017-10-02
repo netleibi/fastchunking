@@ -67,7 +67,7 @@ Multi-Level Chunking (ML-\*)
 ----------------------------
 
 Multiple chunkers of the same type (but with different chunk sizes) can be
-efficiently used in parallel, e.g., to perform multi-level chunking [LS16]_.
+efficiently used in parallel, e.g., to perform multi-level chunking [LS17]_.
 
 Again, let us consider a random message that should be chunked:
     >>> import os
@@ -95,6 +95,7 @@ index 2, i.e., the chunker with 4096 bytes target chunk size.
    value.
 
 References:
-    .. [LS16] Dominik Leibenger and Christoph Sorge (2016). sec-cs: Getting the
-       Most out of Untrusted Cloud Storage.
-       `arXiv:1606.03368 <http://arxiv.org/abs/1606.03368>`_
+    .. [LS17] Dominik Leibenger and Christoph Sorge (2017). sec-cs: Getting the
+       Most out of Untrusted Cloud Storage. In Proceedings of the 42nd IEEE
+       Conference on Local Computer Networks (LCN 2017), 2017.
+       (Preprint: `arXiv:1606.03368 <http://arxiv.org/abs/1606.03368>`_)

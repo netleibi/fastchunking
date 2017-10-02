@@ -5,7 +5,7 @@ fastchunking Python library
 `fastchunking` is a Python library that contains efficient and easy-to-use
 implementations of string chunking algorithms.
 
-It has been developed as part of the work [LS16]_ at CISPA, Saarland University.
+It has been developed as part of the work [LS17]_ at CISPA, Saarland University.
 
 Contents
 ========
