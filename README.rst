@@ -15,8 +15,8 @@ fastchunking Python library
 What it is
 ----------
 
-`fastchunking` is a Python library that contains efficient and easy-to-use
-implementations of string chunking algorithms.
+`fastchunking` is a Python library that contains efficient and easy-to-use implementations of string chunking
+algorithms.
 
 It has been developed as part of the work [LS17]_ at CISPA, Saarland University.
 
@@ -27,15 +27,14 @@ Installation
 
     $ pip install fastchunking
 
-.. note:: For performance reasons, parts of this library are implemented in C++.
-	Installation from a source distribution, thus, requires availability of a
-	correctly configured C++ compiler.
+.. note:: For performance reasons, parts of this library are implemented in C++. Installation from a source
+    distribution, thus, requires availability of a correctly configured C++ compiler.
 
 Usage and Overview
 ------------------
 
-`fastchunking` provides efficient implementations for different string chunking
-algorithms, e.g., static chunking (SC) and content-defined chunking (CDC).
+`fastchunking` provides efficient implementations for different string chunking algorithms, e.g., static chunking (SC)
+and content-defined chunking (CDC).
 
 Static Chunking (SC)
 ^^^^^^^^^^^^^^^^^^^^
@@ -63,23 +62,20 @@ A large message can also be chunked in fragments, though:
 Content-Defined Chunking (CDC)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-`fastchunking` supports content-defined chunking, i.e., chunking of messages
-into fragments of variable lengths.
+`fastchunking` supports content-defined chunking, i.e., chunking of messages into fragments of variable lengths.
 
 Currently, a chunking strategy based on Rabin-Karp rolling hashes is supported.
 
-As a rolling hash computation on plain-Python strings is incredibly slow with
-any interpreter, most of the computation is performed by a C++ extension which
-is based on the `ngramhashing` library by Daniel Lemire, see:
+As a rolling hash computation on plain-Python strings is incredibly slow with any interpreter, most of the computation
+is performed by a C++ extension which is based on the `ngramhashing` library by Daniel Lemire, see:
 https://github.com/lemire/rollinghashcpp
 
 Let us consider a random message that should be chunked:
     >>> import os
     >>> message = os.urandom(1024*1024)
 
-When using static chunking, we have to specify a rolling hash window size (here:
-48 bytes) and an optional seed value that affects the pseudo-random distribution
-of the generated chunk boundaries.
+When using static chunking, we have to specify a rolling hash window size (here: 48 bytes) and an optional seed value
+that affects the pseudo-random distribution of the generated chunk boundaries.
 
 Despite that, usage is similar to static chunking:
     >>> import fastchunking
@@ -98,8 +94,8 @@ Chunking in fragments is straightforward:
 Multi-Level Chunking (ML-\*)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Multiple chunkers of the same type (but with different chunk sizes) can be
-efficiently used in parallel, e.g., to perform multi-level chunking [LS17]_.
+Multiple chunkers of the same type (but with different chunk sizes) can be efficiently used in parallel, e.g., to
+perform multi-level chunking [LS17]_.
 
 Again, let us consider a random message that should be chunked:
     >>> import os
@@ -111,40 +107,33 @@ Usage of multi-level-chunking, e.g., ML-CDC, is easy:
     >>> chunk_sizes = [1024, 2048, 4096]
     >>> chunker = cdc.create_multilevel_chunker(chunk_sizes)
     >>> chunker.next_chunk_boundaries_with_levels(message)
-    [(1049, 2), (1511, 1), (1893, 2), (2880, 1), (2886, 0),
-    (3701, 0), (4617, 0), (5809, 2), (5843, 0), ...]
+    [(1049, 2), (1511, 1), (1893, 2), (2880, 1), (2886, 0), (3701, 0), (4617, 0), (5809, 2), (5843, 0), ...]
 
-The second value in each tuple indicates the highest chunk size that leads to
-a boundary. Here, the first boundary is a boundary created by the chunker with
-index 2, i.e., the chunker with 4096 bytes target chunk size.
+The second value in each tuple indicates the highest chunk size that leads to a boundary. Here, the first boundary is a
+boundary created by the chunker with index 2, i.e., the chunker with 4096 bytes target chunk size.
 
 .. note::
-   Only the highest index is output if multiple chunkers yield the same
-   boundary.
+Only the highest index is output if multiple chunkers yield the same boundary.
     
 .. warning::
-   Chunk sizes have to be passed in correct order, i.e., from lowest to highest
-   value.
+Chunk sizes have to be passed in correct order, i.e., from lowest to highest value.
 
 Performance
 -----------
 
-Computation costs for `static chunking` are barely measurable: As chunking does
-not depend on the actual message but only its length, computation costs are
-essentially limited to a single :code:`xrange` call.
+Computation costs for `static chunking` are barely measurable: As chunking does not depend on the actual message but
+only its length, computation costs are essentially limited to a single :code:`xrange` call.
 
-`Content-defined chunking`, however, is expensive: The algorithm has to compute
-hash values for rolling hash window contents at `every` byte position of the
-message that is to be chunked. To minimize costs, fastchunking works as follows:
+`Content-defined chunking`, however, is expensive: The algorithm has to compute hash values for rolling hash window
+contents at `every` byte position of the message that is to be chunked. To minimize costs, fastchunking works as
+follows:
     
     1. The message (fragment) is passed in its entirety to the C++ extension.
     2. Chunking is performed within the C++ extension.
-    3. The resulting list of chunk boundaries is communicated back to Python and
-       converted into a Python list.
+    3. The resulting list of chunk boundaries is communicated back to Python and converted into a Python list.
 
-Based on a 100 MiB random content, the author measured the following throughput
-on an Intel Core i7-4770K in a single, non-representative test run using
-Python 3.5 (Windows x86-64):
+Based on a 100 MiB random content, the author measured the following throughput on an Intel Core i7-4770K in a single,
+non-representative test run using Python 3.5 (Windows x86-64):
 
     =========== ==========
     chunk size  throughput
@@ -168,10 +157,9 @@ Testing
 
 ::
 
-	$ tox
+    $ tox
 
 References:
-    .. [LS17] Dominik Leibenger and Christoph Sorge (2017). sec-cs: Getting the
-       Most out of Untrusted Cloud Storage. In Proceedings of the 42nd IEEE
-       Conference on Local Computer Networks (LCN 2017), 2017.
-       (Preprint: `arXiv:1606.03368 <http://arxiv.org/abs/1606.03368>`_)
+    .. [LS17] Dominik Leibenger and Christoph Sorge (2017). sec-cs: Getting the Most out of Untrusted Cloud Storage. In
+        Proceedings of the 42nd IEEE Conference on Local Computer Networks (LCN 2017), 2017. (Preprint:
+        `arXiv:1606.03368 <http://arxiv.org/abs/1606.03368>`_)

@@ -15,8 +15,8 @@ def generate(file_):
                    [pybindgen.param('double', 'my_threshold')])
     cls.add_method('next_chunk_boundaries',
                    pybindgen.retval('std::list<unsigned int>'),
-                   [pybindgen.param('std::string*', 'str'),
-                    pybindgen.param('unsigned int', 'prepend_bytes')])
+                   [pybindgen.param('const std::string*', 'content'),
+                    pybindgen.param('const unsigned int', 'prepend_bytes')])
 
     cls = mod.add_class('RabinKarpMultiThresholdHash')
     cls.add_constructor([pybindgen.param('int', 'my_window_size'),
@@ -24,7 +24,7 @@ def generate(file_):
                          pybindgen.param('std::list<double>', 'my_thresholds')])
     cls.add_method('next_chunk_boundaries_with_thresholds',
                    pybindgen.retval('std::list<unsigned int>'),
-                   [pybindgen.param('std::string*', 'str'),
+                   [pybindgen.param('const std::string*', 'content'),
                     pybindgen.param('unsigned int', 'prepend_bytes')])
 
     mod.generate(file_)

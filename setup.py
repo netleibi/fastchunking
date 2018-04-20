@@ -28,16 +28,17 @@ class Tox(TestCommand):
 
 def read(*parts):
     # intentionally *not* adding an encoding option to open
-    return codecs.open(os.path.join(here, *parts), 'r').read()
+    with codecs.open(os.path.join(here, *parts), 'r') as f:
+        return f.read()
 
 
 def find_version(*file_paths):
     version_file = read(*file_paths)
-    version_match = re.search(r"^__version__ = ['\"]([^'\"]*)['\"]",
-                              version_file, re.M)
+    version_match = re.search(r"^__version__ = ['\"]([^'\"]*)['\"]", version_file, re.M)
     if version_match:
         return version_match.group(1)
     raise RuntimeError("Unable to find version string.")
+
 
 # Make sure build path exists.
 build_path = os.path.join(here, 'build')
@@ -48,15 +49,15 @@ if not os.path.exists(build_path):
 module_fname = os.path.join(build_path, "rabinkarprh.cpp")
 
 try:
-    import pybindgen #@UnusedImport
+    import pybindgen  # @UnusedImport
 except ImportError:
-    print("WARNING: Failed to import pybindgen. If you called setup.py egg_info,"
-          "this is probably acceptable; otherwise, build will fail."
-          "You can resolve this problem by installing pybindgen beforehand.")
+    print("WARNING: Failed to import pybindgen. If you called setup.py egg_info, this is probably acceptable; "
+          "otherwise, build will fail. You can resolve this problem by installing pybindgen beforehand.")
 else:
     with open(module_fname, "wt") as file_:
         print("Generating file {}".format(module_fname))
         from lib.rabinkarp_gen import generate
+
         generate(file_)
 
 setup(
@@ -74,20 +75,21 @@ setup(
     license='Apache Software License',
 
     classifiers=[
-            'Development Status :: 2 - Pre-Alpha',
+        'Development Status :: 2 - Pre-Alpha',
 
-            'Intended Audience :: Developers',
-            'Topic :: Software Development :: Libraries :: Python Modules',
+        'Intended Audience :: Developers',
+        'Topic :: Software Development :: Libraries :: Python Modules',
 
-            'License :: OSI Approved :: Apache Software License',
+        'License :: OSI Approved :: Apache Software License',
 
-            'Operating System :: OS Independent',
+        'Operating System :: OS Independent',
 
-            'Programming Language :: Python :: 3',
-            'Programming Language :: Python :: 3.5'
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.5'
     ],
 
-    keywords=['text chunking', 'SC', 'static chunking', 'CDC', 'content-defined chunking', 'ML-*', 'multi-level chunking', 'ML-SC', 'ML-CDC', 'Rabin Karp', 'rolling hash'],
+    keywords=['text chunking', 'SC', 'static chunking', 'CDC', 'content-defined chunking', 'ML-*',
+              'multi-level chunking', 'ML-SC', 'ML-CDC', 'Rabin Karp', 'rolling hash'],
 
     packages=['fastchunking', 'lib'],
 
